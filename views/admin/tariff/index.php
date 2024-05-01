@@ -8,7 +8,7 @@ $this->title = "Tariffs page";
 
 <div class="container-fluid px-4">
     <h1 class="mt-4">Тарифы</h1>
-    <a href="<?= Url::to(['admin/tariff/create'])?>" id="admin-tariff-add" type="button" class="btn btn-success" style="margin-bottom: 21px">Добавить</a>
+    <a href="<?= Url::to(['admin/tariff/create'])?>" id="admin-tariff-add" type="button" class="btn btn-success" style="margin-bottom: 21px">Добавить новый тариф</a>
     <div class="card mb-4">
         <div class="card-header">Тарифы</div>
         <div class="box">
