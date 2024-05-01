@@ -12,7 +12,7 @@ class TariffController extends Controller
     public function actionIndex()
     {
         $tariffs = Tariff::find()->all();
-        return $this->render('admin/tarif/index', [
+        return $this->render('index', [
             'tariffs' => $tariffs,
         ]);
     }
