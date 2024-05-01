@@ -41,10 +41,8 @@ $this->title = "Tariffs page";
                                     <?php ActiveForm::end(); ?>
                                 </td>
                                 <td><?= Html::encode($tariff->price) ?></td>
-                                <td><a href="#" type="button"
-                                        class="btn btn-success">Редактировать</a>
-                                    <a href="#" type="button"
-                                        class="btn btn-danger delete">Удалить</a>
+                                <td><a href="<?= Url::to(['admin/tariff/edit/', 'id' => $tariff->id])?>" type="button" class="btn btn-success">Редактировать</a>
+                                    <a href="<?= Url::to(['admin/tariff/delete/', 'id' => $tariff->id])?>" type="button" class="btn btn-danger delete">Удалить</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -47,6 +47,8 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+                'admin/tariff/<id:\d+>/delete' => 'admin/tariff/delete',
+                'admin/tariff/<id:\d+>/edit' => 'admin/tariff/edit',
             ],
         ],
     ],
