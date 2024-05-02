@@ -18,12 +18,13 @@ class TariffController extends Controller
         ]);
     }
 
+    // TODO В экшенах Create и Edit - повторяющийся код. Куда-нибудь вынести...
     public function actionCreate()
     {
         $tariff = new Tariff();
         if ($tariff->load(Yii::$app->request->post()) && $tariff->validate()) {
             $tariff->save();
-            return $this->redirect(['index','id'=> Tariff::find()->all()]);
+            return $this->redirect(['index', 'id' => Tariff::find()->all()]);
         } else {
             return $this->render('edit', ['tariff' => $tariff]);
         }
@@ -34,7 +35,7 @@ class TariffController extends Controller
         $tariff = Tariff::findOne($id);
         if ($tariff->load(Yii::$app->request->post()) && $tariff->validate()) {
             $tariff->save();
-            return $this->redirect(['index','id'=> Tariff::find()->all()]);
+            return $this->redirect(['index', 'id' => Tariff::find()->all()]);
         } else {
             return $this->render('edit', ['tariff' => $tariff]);
         }
@@ -49,6 +50,54 @@ class TariffController extends Controller
 
         $tariff->delete();
 
-        return $this->redirect(['index','id'=> Tariff::find()->all()]);
+        return $this->redirect(['index', 'id' => Tariff::find()->all()]);
+    }
+
+    public function actionA()
+    {
+        return $this->render('a', ['model' => new AjaxTest()]);
+    }
+
+    public function actionTest()
+    {
+        $tariff = new Tariff();
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        if (Yii::$app->request->isAjax) {
+
+            $data = Yii::$app->request->post();
+            $id = $data['Tariff']['id'];
+            $speed = $data['Tariff']['speed'];
+
+            $tariff = Tariff::findOne($id);
+            if ($tariff === null) {
+                return [
+                    "status" => "404",
+                    "error" => "Tariff not found"
+                ];
+            }
+
+            $tariff->speed = $speed;
+
+            if ($tariff->save()) {
+                return [
+                    "status" => "200",
+                    "data" => $tariff,
+                    "error" => null
+                ];
+            } else {
+                return [
+                    "status" => "503",
+                    "data" => null,
+                    "error" => "saving to the database failed"
+                ];
+            }
+        } else {
+            return [
+                "status" => "400",
+                "data" => null,
+                "error" => "bad request"
+            ];
+        }
     }
 }
