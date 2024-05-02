@@ -5,6 +5,7 @@
 
 use app\assets\AppAsset;
 use app\widgets\Alert;
+use yii\helpers\Url;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
@@ -49,7 +50,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         ['class' => 'nav-link btn btn-link logout']
                     )
                     . Html::endForm()
-                    . '</li>'
+                    . '</li>',
+            Yii::$app->user->identity
+                ? ['label' => 'Admin page', 'url' => ['/admin/tariff']]
+                : '',
         ]
     ]);
     NavBar::end();

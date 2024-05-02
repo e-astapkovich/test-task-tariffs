@@ -10,6 +10,21 @@ use app\models\Tariff;
 
 class TariffController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $tariffs = Tariff::find()->all();
@@ -51,11 +66,6 @@ class TariffController extends Controller
         $tariff->delete();
 
         return $this->redirect(['index', 'id' => Tariff::find()->all()]);
-    }
-
-    public function actionA()
-    {
-        return $this->render('a', ['model' => new AjaxTest()]);
     }
 
     public function actionTest()
